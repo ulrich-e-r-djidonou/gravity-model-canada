@@ -2,8 +2,9 @@
 data/raw/
 data/clean/
 *.parquet
-*.csv
+data/**/*.csv
 !requirements.txt
+!outputs/*.csv
 
 # Outputs — les CSV sont versionnés pour Streamlit Cloud
 # outputs/
