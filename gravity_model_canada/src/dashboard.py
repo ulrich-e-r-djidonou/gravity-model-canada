@@ -397,6 +397,6 @@ st.markdown(
 
     **Sources** : USITC Dynamic Gravity Dataset, UN Comtrade, Banque mondiale WDI.
 
-    *Projet portfolio \u2014 Quantitative Analyst-Economist, EDC*
+    *Ulrich Djidonou*
     """
 )
