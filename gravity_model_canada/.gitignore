@@ -5,8 +5,8 @@ data/clean/
 *.csv
 !requirements.txt
 
-# Outputs (reproductibles)
-outputs/
+# Outputs — les CSV sont versionnés pour Streamlit Cloud
+# outputs/
 
 # Python
 __pycache__/
