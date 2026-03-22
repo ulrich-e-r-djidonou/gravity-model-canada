@@ -1,0 +1,82 @@
+name: CI - Gravity Model Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff pytest
+
+      - name: Lint with ruff
+        run: |
+          ruff check src/ config.py main.py --select E,F,W --ignore E501
+
+      - name: Test imports
+        run: |
+          python -c "
+          from config import DATA_RAW, DATA_CLEAN, OUTPUTS, YEAR_START, YEAR_END
+          from config import CANADA_ISO3, SECTORS, GRAVITY_VARS
+          print('Config OK')
+          "
+
+      - name: Test data download functions (dry run)
+        run: |
+          python -c "
+          from src.data_download import _get_un_m49_mapping, load_usitc_gravity
+          mapping = _get_un_m49_mapping()
+          assert 840 in mapping and mapping[840] == 'USA'
+          assert 842 in mapping and mapping[842] == 'USA'
+          assert 156 in mapping and mapping[156] == 'CHN'
+          assert 124 in mapping and mapping[124] == 'CAN'
+          print(f'M49 mapping OK: {len(mapping)} pays')
+          "
+
+      - name: Test model imports
+        run: |
+          python -c "
+          import statsmodels.api as sm
+          import pyfixest as pf
+          import numpy as np
+          import pandas as pd
+          print('Model dependencies OK')
+          "
+
+      - name: Test sector definitions
+        run: |
+          python -c "
+          from src.sectors import SECTOR_MAP, HS_TO_SECTOR
+          assert len(SECTOR_MAP) == 7
+          assert HS_TO_SECTOR[84] == 'Machines & équipements'
+          assert HS_TO_SECTOR[27] == 'Énergie & ressources'
+          assert HS_TO_SECTOR[1] == 'Agriculture & alimentation'
+          print(f'Sector definitions OK: {len(SECTOR_MAP)} secteurs')
+          "
+
+      - name: Test counterfactual module
+        run: |
+          python -c "
+          from src.counterfactual import (
+              scenario_new_fta, scenario_sanctions, scenario_gdp_shock
+          )
+          print('Counterfactual imports OK')
+          "

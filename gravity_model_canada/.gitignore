@@ -1,0 +1,42 @@
+# Données (trop volumineuses pour Git)
+data/raw/
+data/clean/
+*.parquet
+*.csv
+!requirements.txt
+
+# Outputs (reproductibles)
+outputs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Environnement
+.env
+.venv/
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Claude
+.claude/
