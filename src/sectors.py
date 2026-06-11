@@ -25,7 +25,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import DATA_RAW, DATA_CLEAN, OUTPUTS, YEAR_START, YEAR_END
+from config import DATA_RAW, DATA_CLEAN, OUTPUTS
 from src.data_download import _get_un_m49_mapping
 
 

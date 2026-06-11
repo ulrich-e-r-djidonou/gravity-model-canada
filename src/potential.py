@@ -97,7 +97,7 @@ def calculate_trade_potential(
             f"Ratio: {row['potential_ratio']:.2f}"
         )
 
-    print(f"\n\nTOP 10 — Marchés sur-exploités (dépendance) :")
+    print("\n\nTOP 10 — Marchés sur-exploités (dépendance) :")
     print("-" * 80)
     bottom = potential[potential["gap_usd"] < 0].tail(10)
     for _, row in bottom.iterrows():

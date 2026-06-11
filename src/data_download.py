@@ -9,11 +9,9 @@ Sources :
 Usage :
     python src/data_download.py
 """
-import os
 import zipfile
 import requests
 import pandas as pd
-import numpy as np
 import wbgapi as wb
 from pathlib import Path
 
@@ -263,7 +261,6 @@ def _get_un_m49_mapping() -> dict:
         251: "FRA",  # France métropolitaine (variante)
         757: "CHE",  # Suisse (variante)
         699: "IND",  # Inde (variante ancienne)
-        757: "CHE",
     }
 
 
@@ -410,7 +407,7 @@ if __name__ == "__main__":
     if not panel.empty:
         print("\n=== Aperçu ===")
         print(panel.describe().to_string())
-        print(f"\nTop 10 partenaires (par flux moyen) :")
+        print("\nTop 10 partenaires (par flux moyen) :")
         top = panel.groupby("iso3_d")["trade_value"].mean().nlargest(10)
         for iso, val in top.items():
             print(f"  {iso}: ${val/1e9:.1f}B")

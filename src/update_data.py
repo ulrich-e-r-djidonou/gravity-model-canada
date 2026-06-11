@@ -18,7 +18,7 @@ import sys
 import time
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import DATA_RAW, DATA_CLEAN, OUTPUTS, YEAR_START
+from config import DATA_RAW, DATA_CLEAN, YEAR_START
 from src.data_download import _get_un_m49_mapping
 
 
@@ -187,7 +187,7 @@ def main():
         missing = set(range(YEAR_START, latest + 1)) - current_years
         if missing:
             print(f"\n  Annees manquantes : {sorted(missing)}")
-            print(f"  Lancez : python src/update_data.py")
+            print("  Lancez : python src/update_data.py")
         else:
             print("\n  Donnees a jour.")
         return

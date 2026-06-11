@@ -110,7 +110,7 @@ def scenario_new_fta(
 
     print(f"  Pays déjà avec ALE : {int(already_fta)}/{len(target_countries)}")
     print(f"  Impact total estimé : +${total_impact/1e6:,.0f}M")
-    print(f"\n  Détail par pays :")
+    print("\n  Détail par pays :")
     for _, row in affected.sort_values("impact", ascending=False).iterrows():
         if row["impact"] > 0:
             print(
@@ -170,7 +170,7 @@ def scenario_sanctions(
     total_loss = affected["impact"].sum()
 
     print(f"  Perte totale estimée : ${total_loss/1e6:,.0f}M")
-    print(f"\n  Détail :")
+    print("\n  Détail :")
     for _, row in affected.sort_values("impact").iterrows():
         print(
             f"    {row['iso3_d']:5s}  "
@@ -181,7 +181,7 @@ def scenario_sanctions(
 
     # Effet de diversion : quels pays en bénéficient ?
     non_affected = df_scenario[~mask & (df_scenario["trade_baseline"] > 0)].copy()
-    print(f"\n  Marchés de substitution potentiels :")
+    print("\n  Marchés de substitution potentiels :")
     substitutes = non_affected.nlargest(10, "trade_baseline")
     for _, row in substitutes.iterrows():
         print(f"    {row['iso3_d']:5s}  Flux actuel: ${row['trade_baseline']/1e6:8.1f}M")

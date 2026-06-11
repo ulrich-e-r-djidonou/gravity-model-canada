@@ -20,11 +20,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from src.data_download import build_gravity_panel
-from src.model import load_panel, compare_specifications, estimate_ppml_basic
+from src.model import load_panel, compare_specifications
 from src.potential import calculate_trade_potential, identify_edc_opportunities
 from config import OUTPUTS
 
-import numpy as np
 
 
 def main():
@@ -45,7 +44,7 @@ def main():
     print("\n\n[2/4] ESTIMATION DU MODÈLE GRAVITAIRE")
     print("-" * 50)
     df = load_panel()
-    comparison = compare_specifications(df)
+    compare_specifications(df)
 
     # ── Étape 3 : Potentiel commercial ──
     print("\n\n[3/4] CALCUL DU POTENTIEL COMMERCIAL")
@@ -55,18 +54,18 @@ def main():
     # ── Étape 4 : Opportunités EDC ──
     print("\n\n[4/4] IDENTIFICATION DES OPPORTUNITÉS EDC")
     print("-" * 50)
-    opportunities = identify_edc_opportunities(potential)
+    identify_edc_opportunities(potential)
 
     # ── Résumé ──
     print("\n\n" + "=" * 70)
     print("  PIPELINE TERMINÉ")
     print("=" * 70)
     print(f"\n  Outputs générés dans : {OUTPUTS}/")
-    print(f"    - model_comparison.csv   : comparaison OLS vs PPML")
-    print(f"    - trade_potential.csv     : potentiel par pays")
-    print(f"    - edc_opportunities.csv   : marchés prioritaires EDC")
-    print(f"\n  Dashboard :")
-    print(f"    streamlit run src/dashboard.py")
+    print("    - model_comparison.csv   : comparaison OLS vs PPML")
+    print("    - trade_potential.csv     : potentiel par pays")
+    print("    - edc_opportunities.csv   : marchés prioritaires EDC")
+    print("\n  Dashboard :")
+    print("    streamlit run src/dashboard.py")
 
 
 if __name__ == "__main__":

@@ -15,14 +15,13 @@ Usage :
 """
 import streamlit as st
 import pandas as pd
-import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import OUTPUTS, DATA_CLEAN
+from config import OUTPUTS
 
 
 st.set_page_config(
